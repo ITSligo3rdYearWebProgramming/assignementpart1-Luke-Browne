@@ -1,7 +1,7 @@
 
 import { Operator } from "./operatorModel";
 
-function readOps(req, res, options = []) {
+function readOps(req, res, options = []) { // Reads all operators from DB
     const { name } = req.query;
     let filter = {};
 
@@ -18,7 +18,7 @@ function readOps(req, res, options = []) {
 
 }
 
-function readOperator(req, res){
+function readOperator(req, res){ // Reads an individual Operator by ID
     const id = req.params.id;
     Operator.findById(id)
             .then((result) => {
@@ -29,7 +29,7 @@ function readOperator(req, res){
                     res.status(404).json({error: 'not found'}))
 }
 
-function createOperator(req, res){
+function createOperator(req, res){ // Creates a new Operator
     let opDoc = new Operator(req.body);
     opDoc.save()
         .then((result) => {
@@ -44,7 +44,7 @@ function createOperator(req, res){
         console.log('Promising to save');
 }
 
-function updateOperator(req, res){
+function updateOperator(req, res){ // Updates an Operator with new details
     const id = req.params.id;
 
     console.log('Updating Operator' + id)
@@ -62,7 +62,7 @@ function updateOperator(req, res){
                     res.status(404).send({message: 'Not Found' + error}));
 }
 
-function deleteOperator(req, res) {
+function deleteOperator(req, res) { // Deletes an Operator
     const id = req.params.id;
 
     Operator.findByIdAndDelete(id).

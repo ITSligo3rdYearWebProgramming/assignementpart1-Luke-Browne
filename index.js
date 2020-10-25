@@ -12,7 +12,7 @@ const port = 3000;
 // Errors awill be logged to the console.
 // this would normally come from a config file
 
-const connectionString = 'mongodb://localhost:27017/OperatorDB'
+const connectionString = 'mongodb://localhost:27017/OperatorDB' // connects to my MongoDB
 
 mongoose.connect(connectionString, {
   "useNewUrlParser": true,
@@ -46,9 +46,6 @@ app.use('/operators', operators);
 
 app.get('/', (req, res) =>
   res.send('Operators Database'));
-
-app.get('/bananas', (req, res) =>
-  res.send('hello world, this is bananas'));
 
 app.all('*', (req, res) => {
   res.status(404).json({
