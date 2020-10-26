@@ -2,6 +2,7 @@ import express from 'express';
 
 import operators from './routes/operators';
 import ctus from './routes/ctus';
+import loadouts from './routes/loadouts'
 import mongoose from 'mongoose';
 
 const app = express();
@@ -44,6 +45,8 @@ app.use(express.json());
 app.use('/operators', operators);
 
 app.use('/ctus', ctus)
+
+app.use('/loadouts', loadouts)
 
 app.get('/', (req, res) =>
   res.send('Operators Database'));
