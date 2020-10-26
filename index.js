@@ -1,6 +1,7 @@
 import express from 'express';
 
 import operators from './routes/operators';
+import ctus from './routes/ctus';
 import mongoose from 'mongoose';
 
 const app = express();
@@ -42,7 +43,7 @@ app.use(express.json());
 
 app.use('/operators', operators);
 
-
+app.use('/ctus', ctus)
 
 app.get('/', (req, res) =>
   res.send('Operators Database'));
@@ -54,5 +55,4 @@ app.all('*', (req, res) => {
   });
 });
 
-app.listen(port, () => console.log(`Example app listening on 
-  ${port}!`))
+app.listen(port, () => console.log(`Example app listening on ${port}!`))
