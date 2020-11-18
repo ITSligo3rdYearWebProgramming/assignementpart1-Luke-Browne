@@ -1,9 +1,11 @@
 import express from 'express';
-
 import operators from './routes/operators';
 import ctus from './routes/ctus';
 import loadouts from './routes/loadouts'
 import mongoose from 'mongoose';
+import auth from './routes/auth';
+import cors from 'cors';
+import users from './routes/users';
 
 const app = express();
 
@@ -42,14 +44,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 
+app.use('/operators', cors());
+app.use('/ctus', cors());
+app.use('/loadouts', cors());
+
 app.use('/operators', operators);
+app.use('/ctus', ctus);
+app.use('/loadouts', loadouts);
 
-app.use('/ctus', ctus)
+app.use('/users', users);
+app.use('/auth', auth);
 
-app.use('/loadouts', loadouts)
 
 app.get('/', (req, res) =>
-  res.send('Operators Database'));
+  res.send('Rainbow Six Siege Operators Database - Luke Browne 2020'));
 
 app.all('*', (req, res) => {
   res.status(404).json({

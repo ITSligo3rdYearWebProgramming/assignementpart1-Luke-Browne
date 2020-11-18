@@ -10,6 +10,7 @@ const opSchema = new Schema( // Operator Schema
     name: { type: String }, // Real Name
     opName: { type:String, required:true }, // Code Name
     ctu:  { type: String, required: true }, // Team Name
+    icon: { type:String, required: true },  // Op Icon Image
     id: { type:String, required: true, index:{unique:true} }, // Custom ID based on first 3 letters of country or
     },                                                          // CTU followed by A (Attack) or D (Defence)
     {toJSON: {virtuals:true}})                            // and for CTUs with more than 1 Operator on Attack/Defence
