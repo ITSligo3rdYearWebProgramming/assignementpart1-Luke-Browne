@@ -11,10 +11,8 @@ const opSchema = new Schema( // Operator Schema
     opName: { type:String, required:true }, // Code Name
     ctu:  { type: String, required: true }, // Team Name
     icon: { type:String, required: true },  // Op Icon Image
-    id: { type:String, required: true, index:{unique:true} }, // Custom ID based on first 3 letters of country or
-    },                                                          // CTU followed by A (Attack) or D (Defence)
-    {toJSON: {virtuals:true}})                            // and for CTUs with more than 1 Operator on Attack/Defence
-                                                                // a 1 or 2 
+    },         
+    {toJSON: {virtuals:true}})
   opSchema.virtual('uri').get(function()  {
     return `/operators/${this._id}` ; // eg. Jager is a Defender from the GSG9 which is German so - GER-D-1
 });
