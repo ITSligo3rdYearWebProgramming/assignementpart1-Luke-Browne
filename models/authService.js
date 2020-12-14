@@ -1,7 +1,9 @@
-
 import jwt from 'jsonwebtoken';
 import crypto  from 'crypto';
+import config from '../config';
 
+
+let secret =  config.secret; 
 
 function login (req, res)  {
     try {
@@ -19,6 +21,8 @@ function login (req, res)  {
     }
 };
 
+const minutes = 5;
+
 function refresh_token (req, res) {
     try {
         req.body = req.jwt;
@@ -29,4 +33,9 @@ function refresh_token (req, res) {
     }
 };
 
-export default { login, refresh_token }
+function facebookLogin (req, res) {
+    let appToken = jwt.sign(res.locals.auth, secret ,{expiresIn: 2 * 60});
+    res.send({appToken: appToken})
+}
+
+export default { login, refresh_token, facebookLogin }

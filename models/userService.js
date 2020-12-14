@@ -15,6 +15,12 @@ function createUser (req, res)  {
 
     // to do! need to check that the password exists before doing this 
     
+
+    if (!req.body.password)
+    {
+        res.status(412).json({ status: 'fail', message: 'not created ' + error })
+    }
+   
    
     const salt = crypto.randomBytes(16).toString('base64');
     const hash = crypto.createHmac('sha512',salt).update(req.body.password).digest('base64');
@@ -34,6 +40,10 @@ function createUser (req, res)  {
     });
 };
 
+function createOrUpdateFacebookUser (req, res){
+    
+}
+
 
 function readUsers (req, res) {
 
@@ -49,6 +59,10 @@ function readUsers (req, res) {
 function findUserByEmail (email) {
     return User.find({email: email});
 
+}
+
+function findUserByAuthId (authId){
+    return User.find({authId: authId})
 }
 
 // patchUser = (id, userData) => {
@@ -74,4 +88,4 @@ function deleteUser(req, res) {
 }
 
 
-export default { readUsers, createUser, readUser, deleteUser, findUserByEmail }
+export default { readUsers, createUser, readUser, deleteUser, findUserByEmail, findUserByAuthId}

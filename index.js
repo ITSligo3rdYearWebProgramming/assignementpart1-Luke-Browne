@@ -7,16 +7,22 @@ import auth from './routes/auth';
 import cors from 'cors';
 import users from './routes/users';
 
+import https from 'https';
+import fs from 'fs';
+import config from './config'
+
 const app = express();
+
+app.use(cors());
 
 const port = 3000;
 
 
-// Define the database connecton and connect to it.
+// Define t phe database connecton and connect to it.
 // Errors awill be logged to the console.
 // this would normally come from a config file
 
-const connectionString = 'mongodb://localhost:27017/OperatorDB' // connects to my MongoDB
+const connectionString = config.connectionString; // connects to my MongoDB
 
 mongoose.connect(connectionString, {
   "useNewUrlParser": true,
@@ -36,6 +42,11 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log("DB connected")
 });
+
+const options = {
+  key: fs.readFileSync("ssl/lukelocal.key"),
+  cert: fs.readFileSync("ssl/lukelocal.cert")
+};
 
 
 
@@ -67,3 +78,6 @@ app.all('*', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Example app listening on ${port}!`))
+
+https.createServer(options, app).listen(8080, () => 
+  console.log('listening on 8080 too, don\'t forget the https'));
